@@ -2,10 +2,10 @@
     <v-card hover class="pa-2 ma-2 blue darken-4 transparent">
         <v-form lazy-validation>
         <v-select v-model="selectedModel"
-            :items="modelChoices" label="Model" required>
+            :items="modelChoices" label="Modèle" required>
         </v-select>
-        <v-slider v-model="numIterations" label="Nombre d'itération"
-            min="10" max="250" thumb-label="always" color="black">
+        <v-slider v-model="numIterations" label="Nombre d'itérations"
+            min="10" max="100" thumb-label="always" color="black">
         </v-slider>
     </v-form>
     </v-card>
@@ -21,7 +21,7 @@ export default class FormMerger extends Vue {
 
     modelChoices = ['VGG16', 'VGG19']
     selectedModel = 'VGG16'
-    numIterations = '200'
+    numIterations = '100'
 
     retrieveForm () : {selectedModel: string, numIterations: number} | null  {
         if (this.selectedModel && this.numIterations)

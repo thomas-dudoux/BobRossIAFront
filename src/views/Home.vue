@@ -16,7 +16,7 @@
             </v-flex>
             <v-flex xs12 v-if="!processing && done">
                 <span class="headline">Télécharge ton image</span>
-                    <v-btn fab large color="primary" @click="_downloadFile">
+                    <v-btn fab large color="primary" :href="this.styledImages.href" :download="this.styledImages.download">
                         <v-icon>cloud_download</v-icon>
                 </v-btn>
             </v-flex>
@@ -64,7 +64,7 @@ export default class Home extends Vue {
             fd.append('style_image', imgs.styleImage)
             fd.append('model', conf.selectedModel)
             fd.append('num_iterations', conf.numIterations)
-            $.ajax('http://127.0.0.1:8000/style_transfer', {
+            $.ajax(`http://127.0.0.1:5555/style_transfer`, {
                 type: 'POST',
                 data: fd,
                 processData: false,
@@ -78,7 +78,7 @@ export default class Home extends Vue {
                     // @ts-ignore
                     this.styledImages.blob = blob
                     this.styledImages.href = filePath
-                    this.styledImages.download = filePath.substr(filePath.lastIndexOf('/') + 1)
+                    this.styledImages.download = filePath.substr(filePath.lastIndexOf('/') + 1)  + '.png'
                     this.processing = false
                     this.done = true 
                 }
@@ -96,14 +96,6 @@ export default class Home extends Vue {
             bytes[i] = ascii
         }
         return bytes
-    }
-
-    _downloadFile () : void {
-        let link = document.createElement('a')
-        link.href = this.styledImages.href
-        link.download = this.styledImages.download + '.png'
-        link.click()
-        // link.remove()
     }
 
  }
