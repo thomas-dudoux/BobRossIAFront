@@ -64,7 +64,7 @@ export default class Home extends Vue {
             fd.append('style_image', imgs.styleImage)
             fd.append('model', conf.selectedModel)
             fd.append('num_iterations', conf.numIterations)
-            $.ajax(`http://127.0.0.1:5555/style_transfer`, {
+            $.ajax(`http://${document.location.hostname}:${document.location.port}/style_transfer`, {
                 type: 'POST',
                 data: fd,
                 processData: false,
