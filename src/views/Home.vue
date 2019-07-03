@@ -72,30 +72,13 @@ export default class Home extends Vue {
                 dataType: 'text',
                 crossDomain: true,
                 success: (data, textStatus, jqXHR) => {
-                    let bdata = this._base64ToArrayBuffer(data)
-                    let blob = new Blob([bdata], {type: 'octet/stream'})
-                    let filePath = window.URL.createObjectURL(blob)
-                    // @ts-ignore
-                    this.styledImages.blob = blob
-                    this.styledImages.href = filePath
-                    this.styledImages.download = filePath.substr(filePath.lastIndexOf('/') + 1)  + '.png'
+                    this.styledImages.href = data
+                    this.styledImages.download = 'generated.png'
                     this.processing = false
                     this.done = true 
                 }
             })
         }
-    }
-
-    _base64ToArrayBuffer (bs: string) : Uint8Array {
-        let ascii = null
-        let binaryString = window.atob(bs)
-        let binaryLen = binaryString.length
-        let bytes = new Uint8Array(binaryLen)
-        for (let i = 0; i < binaryLen; i++) {
-            ascii = binaryString.charCodeAt(i)
-            bytes[i] = ascii
-        }
-        return bytes
     }
 
  }
